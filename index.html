@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <title>Weather App</title>
+    <!-- This link here is used to access the symbol for search bar -->
+</head>
+
+<body>
+    <div class="container">
+        <div class="search-container">
+            <search class="fas fa-search"></search>
+            <!-- icon for search button -->
+            <input type="search" id="cityInput" placeholder="Enter city">
+        </div>
+        <div id="weatherInfo"></div>
+            <button id = "showDataButton" onclick="toggleTable('myTable', this)">Past Week Data</button>
+    </div>
+<div class = "table-container">
+    <table id="myTable">
+        <thead>
+            <tr>
+                <th>City name</th>
+                <th>Date</th>
+                <th>Temperature</th>
+                <th>Pressure</th>
+                <th>Humidity</th>
+                <th>Weather Condition</th>
+                <th>Wind Speed</th>
+                <th>Weather Icon</th>
+                </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    
+
+    <script>
+       function toggleTable(tableId, button) {
+            var table = document.getElementById(tableId);
+            var tableContainer = document.querySelector('.table-container')
+
+            if (table.style.display === "none" || table.style.display === ''){
+                table.style.display = "table"
+                tableContainer.style.border = "2.5px solid black"
+                button.textContent = "Hide Data"
+            }else{
+                table.style.display = 'none'
+                tableContainer.style.border = "none"
+                button.textContent = "Past Week Data"
+            }
+            
+        }
+
+        function addData(array) {
+            array.map((item) => {
+                addRow(item.q, item.record_date, item.temperature, item.pressure, item.humidity, item.weatherCondition, item.windSpeed, item.weatherIcon);
+            });
+        }
+
+        function addData(array) {
+            array.map((item) => {
+                addRow(item.q, item.record_date, item.temperature, item.pressure, item.humidity, item.weatherCondition, item.windSpeed, item.weatherIcon);
+            });
+        }
+
+        function addRow(city, date, temperature, pressure, humidity, weatherCondition, windSpeed, weatherIcon) {
+            let table = document.getElementById("myTable").getElementsByTagName('tbody')[0];
+            let newRow = table.insertRow();
+
+            let cell1 = newRow.insertCell(0);
+            let cell2 = newRow.insertCell(1);
+            let cell3 = newRow.insertCell(2);
+            let cell4 = newRow.insertCell(3);
+            let cell5 = newRow.insertCell(4);
+            let cell6 = newRow.insertCell(5);
+            let cell7 = newRow.insertCell(6);
+            let cell8 = newRow.insertCell(7);
+
+            cell1.innerHTML = city;
+            cell2.innerHTML = date;
+            cell3.innerHTML = temperature;
+            cell4.innerHTML = pressure;
+            cell5.innerHTML = humidity;
+            cell6.innerHTML = weatherCondition;
+            cell7.innerHTML = windSpeed;
+
+            // Center align the content in table cells
+            cell1.style.textAlign = 'center';
+            cell2.style.textAlign = 'left';
+            cell3.style.textAlign = 'center';
+            cell4.style.textAlign = 'center';
+            cell5.style.textAlign = 'center';
+            cell6.style.textAlign = 'center';
+            cell7.style.textAlign = 'right';
+
+            if(weatherIcon){
+                let img = document.createElement('img');
+                img.src = weatherIcon;
+                img.alt = 'Weather Icon';
+                img.style.width = '50px'; // Adjust width as needed
+                cell8.appendChild(img);
+            }else{
+                cell8.innerHTML = 'N/A';
+            }
+            
+        }
+
+        // Fetch data when the page loads
+        window.onload = function () {
+            fetch('https://nikishashrestha.000webhostapp.com/main1.php')
+                .then(async (res) => {
+                    let data = await res.json();
+                    console.log(data);
+                    addData(data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        };
+    </script>
+    <script src="script.js"></script>
+    
+    <footer>
+        <p>
+            Copyright &copy 2023 | Nikisha Shrestha | 2408239
+        </p>
+    </footer>
+    </body>
+</html>
