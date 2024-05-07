@@ -1,1 +1,5 @@
-# weatherApp
+Link to my website: https://nikishashrestha.000webhostapp.com
+
+This is a weather app project which provides users with up-to-date weather information depending on their chosen city inquiries. The program is structured using HTML, CSS, JavaScript, MySQL, and PHP components. The application uses weather api to fetch real time weather data and is hosted using 000webhost.
+
+Initially, the code queries the local storage to see if the user-entered city is available. The city data is retrieved and sent to the web server if it is located in local storage. When the weather data is not stored locally, the code continues by determining whether the user is connected to the internet. If the user is offline, a notification indicates the unavailability of weather data. Nevertheless, the code retrieves data from PHP if the user is online. The weather data is then obtained by PHP interacting with an API; it is saved locally, sent to the client, and kept in the database. Similarly, the website also displays the weather information of the default city, Avadi, for the past 7 days.
